@@ -12,7 +12,7 @@ export class UsersService {
     return user;
   }
 
-  async getAllUsers(dto: UsersDto) {
+  async getAllUsers() {
       const users = await this.userRepo.findAll();
       return users;
   }
