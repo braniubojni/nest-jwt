@@ -16,12 +16,12 @@ export class UserRoles extends Model<UserRoles> {
   @Column({
     type: DataType.INTEGER,
   })
-  roleId: string;
+  roleId: number;
 
   @ForeignKey(() => User)
   @Column({
     type: DataType.INTEGER,
   })
-  userId: string;
+  userId: number;
 
 }
