@@ -1,6 +1,8 @@
 import {
   CanActivate,
   ExecutionContext,
+  HttpException,
+  HttpStatus,
   Injectable,
   UnauthorizedException,
 } from "@nestjs/common";
@@ -17,15 +19,16 @@ export class RolesGuard implements CanActivate {
     context: ExecutionContext
   ): boolean | Promise<boolean> | Observable<boolean> {
     try {
-      const requiredRoles = this.reflector.getAllAndOverride(ROLES_KEY, [
-        context.getHandler(),
-        context.getClass(),
-      ]);
+      const requiredRoles = this.reflector.getAllAndOverride<string[]>(
+        ROLES_KEY,
+        [context.getHandler(), context.getClass()]
+      );
       if (!requiredRoles) {
         return true;
       }
       const req = context.switchToHttp().getResponse();
       const authHeader = req.headers.authorization;
+      console.log(authHeader, 'HEADER')
       const [bearer, token] = authHeader.split(" ");
 
       if (bearer !== "Bearer" || !token) {
@@ -38,7 +41,7 @@ export class RolesGuard implements CanActivate {
       return user.roles.some((role) => requiredRoles.includes(role.value));
     } catch (error) {
       console.log(error.message);
-      throw new UnauthorizedException({ message: "User is not registered" });
+      throw new HttpException("Don't have an access", HttpStatus.FORBIDDEN);
     }
   }
 }

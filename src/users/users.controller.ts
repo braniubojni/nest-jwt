@@ -1,11 +1,13 @@
 import { Body, Controller, Get, Post, UseGuards } from "@nestjs/common";
 import { ApiOperation, ApiResponse, ApiTags } from "@nestjs/swagger";
 import { JwtAuthGuard } from "src/auth/jwt-auth.guard";
+import { Roles } from "src/auth/roles-auth.decorator";
+import { RolesGuard } from "src/auth/roles.guard";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { User } from "./users.model";
 import { UsersService } from "./users.service";
 
-@ApiTags('Users')
+@ApiTags("Users")
 @Controller("users")
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
@@ -27,7 +29,8 @@ export class UsersController {
     description: "The record has been successfully found.",
     type: [User],
   })
-  @UseGuards(JwtAuthGuard)
+  @Roles("ADMIN")
+  @UseGuards(RolesGuard)
   @Get()
   getAll() {
     return this.usersService.getAllUsers();
