@@ -29,6 +29,7 @@ export class UsersController {
     description: "The record has been successfully found.",
     type: [User],
   })
+
   @Roles("ADMIN")
   @UseGuards(RolesGuard)
   @Get()
