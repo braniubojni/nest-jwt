@@ -45,6 +45,7 @@ export class UsersController {
   @ApiOperation({ summary: "Provide the role" })
   @ApiResponse({ status: 200 })
   @Roles("ADMIN")
+  @UsePipes(ValidationPipe)
   @UseGuards(RolesGuard)
   @Post('add-role')
   addRole(@Body() dto: AddRoleDto) {
@@ -54,6 +55,7 @@ export class UsersController {
   @ApiOperation({ summary: "Delete additional role" })
   @ApiResponse({ status: 200 })
   @Roles("ADMIN")
+  @UsePipes(ValidationPipe)
   @UseGuards(RolesGuard)
   @Post('rm-role')
   rmRole(@Body() dto: RmRoleDto) {
