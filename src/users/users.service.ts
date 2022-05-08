@@ -15,15 +15,12 @@ export class UsersService {
   ) {}
 
   async createUser(dto: CreateUserDto) {
-    try {
-      const user = await this.userRepo.create(dto);
-      const role = await this.roleService.getRoleByValue("USER");
-      await user.$set("roles", [role.id]);
-      user.roles = [role];
-      return user;
-    } catch (error) {
-      Logger.error(error.message, "Err here");
-    }
+    console.log('Should not come here');
+    const user = await this.userRepo.create(dto);
+    const role = await this.roleService.getRoleByValue("USER");
+    await user.$set("roles", [role.id]);
+    user.roles = [role];
+    return user;
   }
 
   async getAllUsers() {

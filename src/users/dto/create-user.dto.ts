@@ -9,6 +9,6 @@ export class CreateUserDto {
 
   @ApiProperty({ example: "Abcd1234", description: "Password" })
   @IsString({ message: "Password should be string" })
-  @Length(4, 40, { message: "Lower than 40 more than 8" })
+  @Length(8, 40, { message: "Lower than 40 more than 8" })
   readonly password: string;
 }
