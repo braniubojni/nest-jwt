@@ -1,4 +1,9 @@
+import { IsNumber, IsString } from "class-validator";
+
 export class BanUserDto {
-    readonly userId: number;
-    readonly banReason: string;
+  @IsNumber({}, { message: "Should be number" })
+  readonly userId: number;
+
+  @IsString({ message: "Should be a string" })
+  readonly banReason: string;
 }
