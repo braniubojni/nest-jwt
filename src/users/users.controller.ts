@@ -32,9 +32,6 @@ export class UsersController {
     description: "The record has been successfully found.",
     type: [User],
   })
-
-  @ApiOperation({ summary: "Get all users" })
-  @ApiResponse({ status: 200 })
   @Roles("ADMIN")
   @UseGuards(RolesGuard)
   @Get()
